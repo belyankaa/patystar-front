@@ -1,0 +1,39 @@
+@import "../../../../styles/variables";
+
+.Footer {
+  background-color: $bg-main-color;
+  display: flex;
+  justify-content: space-around;
+
+  .link {
+    padding: 12px 10px;
+
+    &.active {
+      &.base {
+        svg > * {
+          stroke: $app-brand-color;
+          fill: $app-brand-color;
+        }
+      }
+
+      &.accurate {
+        svg {
+          rect:first-child {
+            fill: $app-brand-color;
+            stroke: $app-brand-color;
+          }
+
+          rect:nth-child(2) {
+            stroke: $bg-main-color;
+            fill: $bg-main-color;
+          }
+
+          rect:nth-child(3) {
+            stroke: $bg-main-color;
+            fill: $bg-main-color;
+          }
+        }
+      }
+    }
+  }
+}

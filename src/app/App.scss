@@ -1,0 +1,13 @@
+@import "../styles/global";
+@import "../styles/icons";
+
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .routes {
+    height: 100%;
+  }
+}
