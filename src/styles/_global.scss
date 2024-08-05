@@ -1,0 +1,10 @@
+@import "fonts";
+@import "variables";
+
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $bg-main-color;
+  overscroll-behavior: none;
+}
