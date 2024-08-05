@@ -1,3 +1,4 @@
+@import "../styles/variables";
 @import "../styles/global";
 @import "../styles/icons";
 
@@ -6,8 +7,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  .routes {
-    height: 100%;
-  }
+  background-color: $bg-main-color;
+  font-family: Roboto, sans-serif;
+  color: $defaul-text-color;
 }

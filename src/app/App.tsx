@@ -2,7 +2,6 @@ import React from 'react';
 import {Route, Routes, Navigate} from "react-router-dom";
 import './App.scss';
 
-import Header from "./core/layout/header/Header";
 import Footer from "./core/layout/footer/Footer";
 import Main from "./core/pages/main/Main";
 import Login from "./core/pages/authorization/login/Login";
@@ -14,25 +13,21 @@ import Profile from "./core/pages/profile/Profile";
 function App() {
     return (
         <div className="App">
-            <Header/>
+            <Routes>
+                {/*Авторизация*/}
+                {/*loader={redirectIfUser} вставить в Route как интерсептор но проверить*/}
+                <Route path="login" element={<Login/>}/>
 
-            <div className="routes">
-                <Routes>
-                    {/*Авторизация*/}
-                    {/*loader={redirectIfUser} вставить в Route как интерсептор но проверить*/}
-                    <Route path="login" element={<Login/>}/>
+                {/*Основаные страницы*/}
+                <Route path="/" element={<Main/>}/>
+                <Route path="/search" element={<Search/>}/>
+                <Route path="/add-post" element={<AddPost/>}/>
+                <Route path="/participating-events" element={<ParticipatingEvents/>}/>
+                <Route path="/profile" element={<Profile/>}/>
 
-                    {/*Основаные страницы*/}
-                    <Route path="/" element={<Main/>}/>
-                    <Route path="/search" element={<Search/>}/>
-                    <Route path="/add-post" element={<AddPost/>}/>
-                    <Route path="/participating-events" element={<ParticipatingEvents/>}/>
-                    <Route path="/profile" element={<Profile/>}/>
-
-                    {/*Редирект*/}
-                    <Route path="*" element={<Navigate to="/"/>}/>
-                </Routes>
-            </div>
+                {/*Редирект*/}
+                <Route path="*" element={<Navigate to="/"/>}/>
+            </Routes>
 
             <Footer/>
         </div>
