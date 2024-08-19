@@ -1,0 +1,8 @@
+@import "variables";
+
+.input {
+  outline: none;
+  background-color: $input-bg-color;
+  border: 1px solid $borders-color;
+  color: $defaul-text-color;
+}
