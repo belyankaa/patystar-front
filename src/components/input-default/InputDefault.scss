@@ -1,5 +1,40 @@
-.Message-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@import "../../styles/variables";
+
+.Input-default {
+  position: relative;
+
+  .input {
+    font-size: 16px;
+    padding: 15px 15px 0 10px;
+    color: $default-text-color;
+    outline: none;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    letter-spacing: 2px;
+
+    &[type="password"] {
+      letter-spacing: 10px;
+    }
+  }
+
+  .label {
+    width: fit-content;
+    font-size: 16px;
+    color: $borders-color;
+    position: absolute;
+    pointer-events: none;
+    top: 12px;
+    left: 9px;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: .3s;
+  }
+
+  .input:focus ~ .label,
+  .input:not(:placeholder-shown) ~ .label {
+    top: 5px;
+    font-size: 10px;
+  }
 }

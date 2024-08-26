@@ -1,0 +1,58 @@
+@import "../../../styles/variables";
+
+.Login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80vh;
+  align-items: center;
+  max-width: 600px;
+  padding: 0 40px;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 100px;
+}
+
+.form {
+  width: 100%;
+
+  .input {
+    min-width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .message {
+    display: flex;
+    justify-content: space-between;
+
+    .error {
+      color: red;
+    }
+
+    .forgot-pass {
+      color: $app-brand-color;
+      cursor: pointer;
+    }
+  }
+
+
+  .button {
+    margin-top: 30px;
+  }
+}
+
+.not-registred  {
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid $borders-color;
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+
+  a {
+    color: $app-brand-color;
+    text-decoration: none;
+  }
+}

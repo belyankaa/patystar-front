@@ -1,10 +1,15 @@
-import React from 'react';
-import './MessageIcon.scss';
+'use client'
 
-const InputDefault = () => {
+import './InputDefault.scss';
+
+const InputDefault = ({placeholder ,value , onChange, type = 'text', error = false}) => {
+
+
     return (
         <div className="Input-default">
-            input
+            <input className="input" type={type} placeholder=" " value={value} style={{borderColor: error ? '#F43463' : ''}}
+                   onChange={(e) => onChange(e.target.value)}/>
+            <label className="label">{placeholder}</label>
         </div>
     );
 };

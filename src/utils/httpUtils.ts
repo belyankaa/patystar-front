@@ -1,3 +1,5 @@
+import {rejects} from "node:assert";
+
 export class Http {
 
     public static mainUrl: string = 'http://localhost:8080/api/';
@@ -18,11 +20,29 @@ export class Http {
         return await this.http(url, 'PUT', body);
     }
 
-    private static async http(url: string, methode: 'POST' |'GET' | 'DELETE' | 'PUT', body?: any) {
-        return await fetch(Http.mainUrl + url, {
+    private static async http(url: string, methode: 'POST' | 'GET' | 'DELETE' | 'PUT', body?: any) {
+        const data = new FormData();
+
+        for (let key in body) {
+            data.append(key, body[key]);
+        }
+
+        const result = await fetch(Http.mainUrl + url, {
             method: methode,
-            body: body,
+            body: data,
             credentials: 'include'
-        }).then(res => res.json());
+        } as any);
+
+        if (result.status !== 403 ) return result.json();
+
+        return new Promise((resolve, reject) => {
+            reject(result);
+        })
+    }
+
+    public static async error() {
+        return new Promise((resolve, reject) => {
+            reject('sdf');
+        })
     }
 }
