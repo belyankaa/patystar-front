@@ -1,9 +1,9 @@
 @import "../../styles/variables";
 
-.Input-default {
+.InputDefault {
   position: relative;
 
-  .input {
+  .defaultInput {
     font-size: 16px;
     padding: 15px 15px 0 10px;
     color: $default-text-color;
@@ -19,7 +19,7 @@
     }
   }
 
-  .label {
+  .defaultInputLabel {
     width: fit-content;
     font-size: 16px;
     color: $borders-color;
@@ -32,9 +32,16 @@
     transition: .3s;
   }
 
-  .input:focus ~ .label,
-  .input:not(:placeholder-shown) ~ .label {
+  .defaultInput:focus ~ .defaultInputLabel,
+  .defaultInput:not(:placeholder-shown) ~ .defaultInputLabel {
     top: 5px;
     font-size: 10px;
+  }
+
+  .defaultInputError {
+    color: $error-color;
+    position: absolute;
+    top: 42px;
+    left: 2px;
   }
 }

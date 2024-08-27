@@ -24,26 +24,15 @@
   }
 
   .message {
-    display: flex;
-    justify-content: space-between;
-
-    .error {
-      color: red;
-    }
-
-    .forgot-pass {
+    .forgotPass {
+      text-align: right;
       color: $app-brand-color;
       cursor: pointer;
     }
   }
-
-
-  .button {
-    margin-top: 30px;
-  }
 }
 
-.not-registred  {
+.notRegistred {
   padding: 20px 0;
   text-align: center;
   border-top: 1px solid $borders-color;
@@ -55,4 +44,8 @@
     color: $app-brand-color;
     text-decoration: none;
   }
+}
+
+.button {
+  margin-top: 30px;
 }

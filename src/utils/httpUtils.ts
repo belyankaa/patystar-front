@@ -42,7 +42,7 @@ export class Http {
 
     public static async error() {
         return new Promise((resolve, reject) => {
-            reject('sdf');
+            reject('error');
         })
     }
 }

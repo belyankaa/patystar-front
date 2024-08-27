@@ -1,40 +1,30 @@
 'use client'
 
 import React, {useEffect, useState} from 'react';
-import './Login.scss';
+import styles from './Login.module.scss';
 import {useQuery} from "@tanstack/react-query";
 import {UserService} from "@/services/user.service";
 import InputDefault from "@/components/input-default/InputDefault";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
+import Button from "@/components/button/Button";
 
-const Login = () => {
+const LoginPage = () => {
+    const router = useRouter();
+
+    const {isSuccess} = useQuery({
+        queryKey: ['currentUser'],
+        queryFn: async (): Promise<any> => await UserService.currentUser(),
+        retry: false
+    });
+
+    if (isSuccess) router.push('/events');
+
     const [username, usernameChange] = useState('');
     const [password, passwordChange] = useState('');
     const [loginError, loginErrorChange] = useState(false);
 
-    const router = useRouter();
-
-    const {isFetching: loginLoading, refetch: loginRefetch} = useQuery({
-        queryKey: ['signIn'],
-        queryFn: async (): Promise<any> => await UserService.login({username, password}),
-        enabled: false,
-        retry: false
-    });
-
-    const {isSuccess, refetch: currentUserRefetch} = useQuery({
-        queryKey: ['currentUser'],
-        queryFn: async (): Promise<any> => await UserService.currentUser(),
-        enabled: false,
-        retry: false
-    });
-
-    useEffect(() => {
-        currentUserRefetch().then(res => {
-            if (res.isSuccess) router.push('/events');
-        })
-    }, []);
-
+    const {mutateAsync: login, isPending: isLoginPending} = UserService.useLoginMutation();
 
     function changeUsernameFn(e: string) {
         usernameChange(e);
@@ -47,21 +37,19 @@ const Login = () => {
     }
 
     function submit() {
-        if (!username || !password || loginLoading) return;
-        loginRefetch().then(res => {
-            if (res.isSuccess) {
-                if (res.data.error) return loginErrorChange(true);
+        if (!username || !password || isLoginPending) return;
+        login({username, password}).then(res => {
+            if (res.error) return loginErrorChange(true);
 
-                loginErrorChange(false);
-                UserService.set(res.data.username);
-                router.push('/events');
-            }
+            loginErrorChange(false);
+            UserService.set(res.username);
+            router.push('/events');
         });
     }
 
     return (
-        <div className="Login">
-            <div className="logo">
+        <div className={styles.Login}>
+            <div className={styles.logo}>
                 <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect width="100" height="100" fill="#1F2833"/>
                     <path
@@ -69,27 +57,30 @@ const Login = () => {
                         fill="#9E08FD"/>
                 </svg>
             </div>
-            <div className="form">
-                <InputDefault value={username} onChange={(e: any) => changeUsernameFn(e)}
-                              placeholder="Имя пользователя"/>
-                <InputDefault value={password} onChange={(e: any) => changePasswordFn(e)} type="password"
-                              placeholder="Пароль"/>
-                <div className="message">
-                    <div className="error">
-                        <span hidden={!loginError}>Неправильный логин или пароль</span>
-                    </div>
-                    <div className="forgot-pass">Забыли пароль?</div>
+            <div className={styles.form}>
+                <div className={styles.input}>
+                    <InputDefault value={username} onChange={(e: any) => changeUsernameFn(e)}
+                                  error={loginError}
+                                  placeholder="Имя пользователя"/>
                 </div>
-                <button disabled={!username || !password} className="button button-brand" onClick={() => submit()}>
-                    <span hidden={loginLoading}>Войти</span>
-                    <span hidden={!loginLoading}>loading...</span>
-                </button>
+                <div className={styles.input}>
+                    <InputDefault value={password} onChange={(e: any) => changePasswordFn(e)} type="password"
+                                  errorMessage="Неправильный логин или пароль" error={loginError}
+                                  placeholder="Пароль"/>
+                </div>
+                <div className={styles.message}>
+                    <div className={styles.forgotPass}>Забыли пароль?</div>
+                </div>
+                <div className={styles.button}>
+                    <Button onClick={() => submit()} text="Войти" disabled={!username || !password || isLoginPending}
+                            isPending={isLoginPending}/>
+                </div>
             </div>
-            <div className="not-registred">
+            <div className={styles.notRegistred}>
                 Еще нет аккаунта? <Link href="/auth/sign-up">Зарегистрироваться</Link>
             </div>
         </div>
     );
 };
 
-export default Login;
+export default LoginPage;

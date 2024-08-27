@@ -1,13 +1,15 @@
 'use client'
 
-import './Sign-up-page.scss';
+import styles from './Sign-up-page.module.scss';
 import InputDefault from "@/components/input-default/InputDefault";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
-import {useQuery} from "@tanstack/react-query";
 import {UserService} from "@/services/user.service";
+import Button from "@/components/button/Button";
 
-const SignUpPage = ({onSubmit}) => {
+const SignUpPage = ({onSubmit, isLoginProcessing}) => {
+    const passRegExp = /^(?=.*[A-Z]).{6,}$/;
+
     const [username, usernameChange] = useState('');
     const [firstName, firstNameChange] = useState('');
     const [lastName, lastNameChange] = useState('');
@@ -36,17 +38,13 @@ const SignUpPage = ({onSubmit}) => {
         }
     }, [currentPage]);
 
-
-    const {refetch: checkUsername} = useQuery({
-        queryKey: ['signIn'],
-        queryFn: async (): Promise<any> => await UserService.checkUserName({username}),
-        enabled: false,
-        retry: false
-    });
+    const {mutateAsync: checkUserName, isPending: isUsernameChecking} = UserService.useCheckUserNameMutation();
 
     function changeUsername(e: string) {
-        checkUsername().then(res => console.log(res));
         usernameChange(e);
+
+        if (e.length > 0)
+            checkUserName(e).then(res => usernameErrorChange(res.error));
     }
 
     function changeFirstName(e: string) {
@@ -62,12 +60,14 @@ const SignUpPage = ({onSubmit}) => {
     }
 
     function changePass(e: string) {
-        // notPodhoditChange(true);
+        const isPodhodit = passRegExp.test(e);
+        notPodhoditChange(!isPodhodit);
+        notComparedChange(rePass !== e);
         passwordChange(e);
     }
 
     function changeRePass(e: string) {
-        // notComparedChange(true);
+        notComparedChange(password !== e);
         rePassChange(e);
     }
 
@@ -88,9 +88,9 @@ const SignUpPage = ({onSubmit}) => {
     }
 
     return (
-        <div className="page">
-            <div className="title">
-                {currentPage === 1 && <div className="action" onClick={() => goBack()}>
+        <div className={styles.signUpPages}>
+            <div className={styles.title}>
+                {currentPage === 1 && <div className={styles.action} onClick={() => goBack()}>
                     <svg width="23" height="23" viewBox="0 0 23 23" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
                         <g clipPath="url(#clip0_26_14)">
@@ -108,7 +108,7 @@ const SignUpPage = ({onSubmit}) => {
                         </defs>
                     </svg>
                 </div>}
-                {(currentPage === 2 || currentPage === 3) && <div className="action" onClick={() => goBack()}>
+                {(currentPage === 2 || currentPage === 3) && <div className={styles.action} onClick={() => goBack()}>
                     <svg width="28" height="21" viewBox="0 0 28 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clipPath="url(#clip0_26_27)">
                             <path
@@ -127,47 +127,56 @@ const SignUpPage = ({onSubmit}) => {
                         </defs>
                     </svg>
                 </div>}
-                <div className="main-text">{currentPageText}</div>
-                <div className="descr">{currentPageDescr}</div>
+                <div className={styles.mainText}>{currentPageText}</div>
+                <div className={styles.descr}>{currentPageDescr}</div>
             </div>
 
-            {currentPage === 1 && <div className="inputs">
-                <div>
-                    <InputDefault placeholder="Имя пользователя"
+            {currentPage === 1 && <div className={styles.inputs}>
+                <div className={styles.input}>
+                    <InputDefault placeholder="Имя пользователя" error={usernameError}
+                                  errorMessage="Имя пользователя уже занято"
                                   value={username} onChange={(e: any) => changeUsername(e)}/>
                 </div>
 
-                <button className="button button-brand" disabled={!username || usernameError} onClick={() => goNext()}>Дальше</button>
+                <div className={styles.button}>
+                    <Button disabled={!username || usernameError || isUsernameChecking} isPending={isUsernameChecking}
+                            onClick={() => goNext()} text="Дальше"/>
+                </div>
             </div>}
-            {currentPage === 2 && <div className="inputs">
-                <div>
+            {currentPage === 2 && <div className={styles.inputs}>
+                <div className={styles.input}>
                     <InputDefault placeholder="Имя"
                                   value={firstName} onChange={(e: any) => changeFirstName(e)}/>
                 </div>
-                <div>
+                <div className={styles.input}>
                     <InputDefault placeholder="Фамилия"
                                   value={lastName} onChange={(e: any) => changeLastName(e)}/>
                 </div>
-                <div>
+                <div className={styles.input}>
                     <InputDefault placeholder="Дата рождения"
                                   value={birthDay} onChange={(e: any) => changeBirthDay(e)}/>
                 </div>
 
-                <button className="button button-brand" disabled={!firstName || !lastName || !birthDay} onClick={() => goNext()}>Дальше</button>
-            </div>}
-            {currentPage === 3 && <div className="inputs">
-                <div>
-                    <InputDefault placeholder="Пароль" type="password" error={notPodhodit}
-                                  value={password} onChange={(e: any) => changePass(e)}/>
-                    {notPodhodit && <div className="error">Пароль не подходит по требованиям</div>}
+                <div className={styles.button}>
+                    <Button disabled={!firstName || !lastName || !birthDay} onClick={() => goNext()} text="Дальше"/>
                 </div>
-                <div>
+            </div>}
+            {currentPage === 3 && <div className={styles.inputs}>
+                <div className={styles.input}>
+                    <InputDefault placeholder="Пароль" type="password" error={notPodhodit}
+                                  errorMessage="Пароль не подходит по требованиям"
+                                  value={password} onChange={(e: any) => changePass(e)}/>
+                </div>
+                <div className={styles.input}>
                     <InputDefault placeholder="Повторите пароль" type="password" error={notCompared && !notPodhodit}
+                                  errorMessage="Пароли не совпадают"
                                   value={rePass} onChange={(e: any) => changeRePass(e)}/>
-                    {notCompared && !notPodhodit && <div className="error">Пароли не совпадают</div>}
                 </div>
 
-                <button className="button button-brand" disabled={!password || !rePass || notPodhodit || notCompared} onClick={() => goNext()}>Зарегистрироваться</button>
+                <div className={styles.button}>
+                    <Button disabled={!password || !rePass || notPodhodit || notCompared || isLoginProcessing}
+                            onClick={() => goNext()} text="Зарегистрироваться" isPending={isLoginProcessing}/>
+                </div>
             </div>}
         </div>
     )
