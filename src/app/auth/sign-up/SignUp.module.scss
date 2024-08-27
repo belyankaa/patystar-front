@@ -1,4 +1,4 @@
-@import "../../styles/variables";
+@import "../../../styles/variables";
 
 .signUpPages {
   max-width: 600px;
@@ -42,5 +42,12 @@
 
   .button {
     margin-top: 30px;
+  }
+
+  .stepperBlock {
+    max-width: 600px;
+    position: absolute;
+    bottom: 50px;
+    width: calc(100% - 80px);
   }
 }

@@ -14,15 +14,17 @@ export default function RootLayout({children}: Readonly<{
     const queryClient = new QueryClient({
         queryCache: new QueryCache({
             onError: async (error) => {
-                if (error.status === 403) router.push('/auth/login');
+                if (location.pathname !== '/auth/login' && location.pathname !== '/auth/sign-up'
+                    && error.status === 403) router.push('/auth/login');
             },
         }),
     })
 
     useEffect(() => {
         UserService.currentUser().catch(e => {
-            if (location.pathname === '/auth/sign-up') return;
-            router.push('/auth/login')
+            if (location.pathname === '/auth/login' || location.pathname === '/auth/sign-up') return;
+
+            router.push('/auth/login');
         });
     }, []);
 
