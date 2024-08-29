@@ -1,27 +1,29 @@
 import React from 'react';
-import './Event.scss';
+import styles from './Event.module.scss';
+import Link from "next/link";
+import {Http} from "@/utils/httpUtils";
 
-const Event = () => {
+const Event = ({event}) => {
     return (
-        <div className="Event">
-            <div className="photo"></div>
-            <div className="title">Жескач тусовка</div>
-            <div className="place-people">
-                <div className="place">Рубцовск</div>
-                <div className="people">
-                    <div className="participate"></div>
-                    <div className="count">15</div>
-                    <div className="people-icon"></div>
+        <section className={styles.EventContainer}>
+            <Link href={`users/${event.userId}`} className={styles.author}>
+                <div className={styles.image} style={{backgroundImage: `url(${Http.staticPath}${event.userImage})`}}></div>
+                <div>{event.username}</div>
+            </Link>
+            <Link href={`events/${event.id}`} className={styles.Event}>
+                <div className={styles.photo} style={{backgroundImage: `url(${Http.eventPreview}/${event.photo})`}}></div>
+                <div className={styles.title}>{event.title}</div>
+                <div className={styles.placePeople}>
+                    <div>{event.place}</div>
+                    <div className={styles.people}>
+                        <div className={styles.participate}></div>
+                        <div className={styles.count}>{event.crowd}</div>
+                        <div className={styles.peopleIcon}></div>
+                    </div>
                 </div>
-            </div>
-            <div className="author-date">
-                <div className="author">
-                    <div className="image"></div>
-                    <div className="name">belyankaa</div>
-                </div>
-                <div className="date">8 июня</div>
-            </div>
-        </div>
+                <div className={styles.date}>{event.date}</div>
+            </Link>
+        </section>
     );
 };
 

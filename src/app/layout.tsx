@@ -15,13 +15,18 @@ export default function RootLayout({children}: Readonly<{
         queryCache: new QueryCache({
             onError: async (error) => {
                 if (location.pathname !== '/auth/login' && location.pathname !== '/auth/sign-up'
-                    && error.status === 403) router.push('/auth/login');
+                    && error.status === 403) {
+
+                    router.push('/auth/login');
+                    if (UserService.get()) UserService.clear();
+                }
             },
         }),
     })
 
     useEffect(() => {
         UserService.currentUser().catch(e => {
+            if (UserService.get()) UserService.clear();
             if (location.pathname === '/auth/login' || location.pathname === '/auth/sign-up') return;
 
             router.push('/auth/login');
@@ -32,7 +37,9 @@ export default function RootLayout({children}: Readonly<{
         <html lang="en">
         <body>
             <QueryClientProvider client={queryClient}>
-                {children}
+                <section>
+                    <main>{children}</main>
+                </section>
             </QueryClientProvider>
         </body>
         </html>

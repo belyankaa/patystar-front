@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import styles from './Login.module.scss';
 import {useQuery} from "@tanstack/react-query";
 import {UserService} from "@/services/user.service";
@@ -42,7 +42,7 @@ const LoginPage = () => {
             if (res.error) return loginErrorChange(true);
 
             loginErrorChange(false);
-            UserService.set(res.username);
+            UserService.set(username, res.id);
             router.push('/events');
         });
     }

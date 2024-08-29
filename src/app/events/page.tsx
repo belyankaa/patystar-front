@@ -1,21 +1,34 @@
 'use client'
 
-import './Events.scss';
+import styles from './Events.module.scss';
 import Event from "@/components/event/Event";
 import MainHeader from "@/layout/main-header/Main-header";
+import {EventsService} from "@/services/events.service";
+import {useEffect, useState} from "react";
 
 const Main = () => {
+    const [events, eventsChange] = useState([]);
 
-    const objectCount = [1, 2, 4, 5];
+    const {mutateAsync: getEvents, isPending: isEventsLoading} = EventsService.useGetAllMutation();
+
+    function getAllEvents() {
+        getEvents(null).then(res => eventsChange(res));
+    }
+
+    useEffect(() => {
+        getAllEvents();
+    }, []);
 
     return (
-        <div className="MainPage">
+        <div className={styles.MainPage}>
             <MainHeader/>
-            {objectCount.map((item, index) =>
-                <div className="event" key={index}>
-                    <Event/>
-                </div>
-            )}
+            <div className={styles.events}>
+                {events && events.map((event, index) =>
+                    <div className={styles.event} key={index}>
+                        <Event event={event}/>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

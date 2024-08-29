@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {UserService} from "@/services/user.service";
 import {useRouter} from "next/navigation";
 import {useQuery} from "@tanstack/react-query";
@@ -10,6 +10,7 @@ import Button from "@/components/button/Button";
 import Stepper from "@/components/stepper/Stepper";
 
 const SignUp = () => {
+    //todo закинуть authForwardGuard в useLayoutEffect чтобы не давать отрисовывать
     const router = useRouter();
 
     const {isSuccess} = useQuery({
@@ -49,7 +50,7 @@ const SignUp = () => {
             login({username, password}).then(res => {
                 if (res.error) return;
 
-                UserService.set(username);
+                UserService.set(username, res.id);
                 router.push('/events');
             })
         })

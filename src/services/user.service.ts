@@ -30,12 +30,12 @@ export class UserService {
 
     public static async currentUser() {
         const user = this.get();
-        if (!user || (user && !user.username)) return await Http.error();
+        if (!user || (user && (!user.username || !user.id))) return await Http.error();
         return await Http.post(`auth/currentUser`, {username: user.username});
     }
 
-    public static set(username: string) {
-        const data = {username};
+    public static set(username: string, userId: number) {
+        const data = {username, id: userId};
         localStorage.setItem('user', JSON.stringify(data));
     }
 
