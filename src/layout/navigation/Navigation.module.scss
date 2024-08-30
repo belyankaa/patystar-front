@@ -1,21 +1,34 @@
 @import "../../styles/variables";
 
-.Footer {
+.Navigation {
   position: fixed;
   left: 0;
   top: 0;
   width: 200px;
-  height: 100vh;
-  background-color: $bg-main-color;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  border-right: 1px solid $borders-color;
+  border-radius: 0 15px 15px 0;
+  background-color: $bg-main-color;
 
   .link {
-    padding: 12px 10px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: $default-text-color;
+    cursor: pointer;
+
+    svg {
+      flex-shrink: 0;
+    }
 
     &.active {
+      background-color: $post-bg-color;
+      border-radius: 15px;
+      color: $app-brand-color;
+
       &.base {
         svg > * {
           stroke: $app-brand-color;

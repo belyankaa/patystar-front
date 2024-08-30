@@ -9,5 +9,10 @@ body {
   background-color: $bg-main-color;
   color: $default-text-color;
   font-family: Roboto, sans-serif;
-  overscroll-behavior: none;
+  //overscroll-behavior: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
 }

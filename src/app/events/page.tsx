@@ -5,6 +5,7 @@ import Event from "@/components/event/Event";
 import MainHeader from "@/layout/main-header/Main-header";
 import {EventsService} from "@/services/events.service";
 import {useEffect, useState} from "react";
+import Navigation from "@/layout/navigation/Navigation";
 
 const Main = () => {
     const [events, eventsChange] = useState([]);
@@ -20,7 +21,7 @@ const Main = () => {
     }, []);
 
     return (
-        <div className={styles.MainPage}>
+        <div>
             <MainHeader/>
             <div className={styles.events}>
                 {events && events.map((event, index) =>

@@ -1,14 +1,19 @@
 'use client'
 
 import "./globals.scss";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {QueryCache, QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {UserService} from "@/services/user.service";
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
+import Navigation from "@/layout/navigation/Navigation";
 
 export default function RootLayout({children}: Readonly<{
     children: React.ReactNode;
 }>) {
+    const [isNavHidden, isNavHiddenChange] = useState(false);
+
+    const hiddenNavPaths = ['/auth', '/events/'];
+
     const router = useRouter();
 
     const queryClient = new QueryClient({
@@ -33,15 +38,20 @@ export default function RootLayout({children}: Readonly<{
         });
     }, []);
 
+    const pathname = usePathname();
+
+    useEffect(() => {
+        isNavHiddenChange(hiddenNavPaths.some(item => pathname.includes(item)));
+    }, [pathname]);
+
     return (
         <html lang="en">
-        <body>
-            <QueryClientProvider client={queryClient}>
-                <section>
-                    <main>{children}</main>
-                </section>
-            </QueryClientProvider>
-        </body>
+            <body id="body">
+                <QueryClientProvider client={queryClient}>
+                    {!isNavHidden && <Navigation/>}
+                    <main className={'main'}>{children}</main>
+                </QueryClientProvider>
+            </body>
         </html>
     );
 }
