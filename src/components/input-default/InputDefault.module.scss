@@ -6,7 +6,7 @@
   .defaultInput {
     font-size: 16px;
     padding: 15px 15px 0 10px;
-    color: $default-text-color;
+    color: $text-light-1;
     outline: none;
     width: 100%;
     height: 40px;
@@ -22,7 +22,7 @@
   .defaultInputLabel {
     width: fit-content;
     font-size: 16px;
-    color: $borders-color;
+    color: $text-light-2;
     position: absolute;
     pointer-events: none;
     top: 12px;

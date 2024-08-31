@@ -2,7 +2,7 @@
 
 import styles from './Events.module.scss';
 import Event from "@/components/event/Event";
-import MainHeader from "@/layout/main-header/Main-header";
+import Topbar from "@/layout/topbar/Topbar";
 import {EventsService} from "@/services/events.service";
 import {useEffect, useState} from "react";
 import Navigation from "@/layout/navigation/Navigation";
@@ -22,7 +22,7 @@ const Main = () => {
 
     return (
         <div>
-            <MainHeader/>
+            <Topbar/>
             <div className={styles.events}>
                 {events && events.map((event, index) =>
                     <div className={styles.event} key={index}>

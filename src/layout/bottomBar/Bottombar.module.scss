@@ -1,0 +1,63 @@
+@import "../../styles/variables";
+
+.Navigation {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  background-color: $bg-color-2;
+  border-radius: 0;
+  bottom: 0;
+  width: 100vw;
+  justify-content: space-around;
+  border-top: 1px solid $border-color-1;
+  box-shadow: none;
+
+  .link {
+    padding: 12px 10px;
+    align-items: center;
+    text-decoration: none;
+    color: $text-light-1;
+    cursor: pointer;
+    border-radius: 15px;
+    transition: .3s ease-in-out;
+
+    svg {
+      flex-shrink: 0;
+      transition: .3s ease-in-out;
+    }
+
+    &.active {
+      &.base {
+        svg > * {
+          stroke: $text-light-1;
+          fill: $text-light-1;
+        }
+      }
+
+      &.accurate {
+        svg {
+          rect:first-child {
+            fill: $text-light-1;
+            stroke: $text-light-1;
+          }
+
+          rect:nth-child(2) {
+            stroke: $bg-color-2;
+            fill: $bg-color-2;
+          }
+
+          rect:nth-child(3) {
+            stroke: $bg-color-2;
+            fill: $bg-color-2;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .Navigation {
+    display: flex;
+  }
+}

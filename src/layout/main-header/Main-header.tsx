@@ -9,7 +9,6 @@ const MainHeader = () => {
     return (
         <header className="Header">
             <div className="logo">
-                parti star
             </div>
             <Link href="/public" className="message">
                 <MessageIcon/>

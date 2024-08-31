@@ -50,7 +50,7 @@ const SignUp = () => {
             login({username, password}).then(res => {
                 if (res.error) return;
 
-                UserService.set(username, res.id);
+                UserService.set(res);
                 router.push('/events');
             })
         })

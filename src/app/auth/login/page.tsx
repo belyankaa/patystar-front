@@ -42,7 +42,7 @@ const LoginPage = () => {
             if (res.error) return loginErrorChange(true);
 
             loginErrorChange(false);
-            UserService.set(username, res.id);
+            UserService.set(res);
             router.push('/events');
         });
     }
@@ -51,7 +51,7 @@ const LoginPage = () => {
         <div className={styles.Login}>
             <div className={styles.logo}>
                 <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="100" height="100" fill="#1F2833"/>
+                    <rect width="100" height="100" fill="#101012"/>
                     <path
                         d="M46.5909 70.1818L47.1591 54.5568L33.9489 62.9375L30.5398 56.9716L44.4602 49.7273L30.5398 42.483L33.9489 36.517L47.1591 44.8977L46.5909 29.2727H53.4091L52.8409 44.8977L66.0511 36.517L69.4602 42.483L55.5398 49.7273L69.4602 56.9716L66.0511 62.9375L52.8409 54.5568L53.4091 70.1818H46.5909Z"
                         fill="#9E08FD"/>

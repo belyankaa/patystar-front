@@ -6,6 +6,8 @@ import {QueryCache, QueryClient, QueryClientProvider} from "@tanstack/react-quer
 import {UserService} from "@/services/user.service";
 import {usePathname, useRouter} from "next/navigation";
 import Navigation from "@/layout/navigation/Navigation";
+import LeftSidebar from "@/layout/leftSideBar/LeftSidebar";
+import Bottombar from "@/layout/bottomBar/Bottombar";
 
 export default function RootLayout({children}: Readonly<{
     children: React.ReactNode;
@@ -48,8 +50,9 @@ export default function RootLayout({children}: Readonly<{
         <html lang="en">
             <body id="body">
                 <QueryClientProvider client={queryClient}>
-                    {!isNavHidden && <Navigation/>}
-                    <main className={'main'}>{children}</main>
+                    {!isNavHidden && <LeftSidebar/>}
+                    <main className={'main ' + (!isNavHidden ? 'extraSpaceMain' : '')}>{children}</main>
+                    {!isNavHidden && <Bottombar/>}
                 </QueryClientProvider>
             </body>
         </html>

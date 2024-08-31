@@ -12,7 +12,7 @@
     width: 100%;
     border-radius: 2px;
     transition: background-color .5s;
-    background-color: $default-text-color;
+    background-color: $text-light-1;
 
     &.activeStep {
       background-color: $app-brand-color;

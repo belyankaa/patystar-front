@@ -6,13 +6,12 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: $bg-main-color;
-  color: $default-text-color;
+  background-color: $bg-color-1;
+  color: $text-light-1;
   font-family: Roboto, sans-serif;
   //overscroll-behavior: none;
 
   &::-webkit-scrollbar {
     width: 0;
   }
-
 }

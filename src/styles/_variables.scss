@@ -1,16 +1,20 @@
 //цвет фона
-$bg-main-color: #1F2833;
+$bg-color-1: #101012;
+//цвет фона
+$bg-color-2: #1F1F22;
 //цвет приложения
 $app-brand-color: #9E08FD;
 //цвет фона поста
-$post-bg-color: #2D3640;
+$post-bg-color: #1F1F22;
 //цвет фона инпутов
-$input-bg-color: #3B4B60;
+$input-bg-color: #1F1F22;
 //цвет текста светлый
-$default-text-color: #F2F2F2;
+$text-light-1: #F2F2F2;
+//цвет текста светлый2
+$text-light-2: #D0DFFF;
 //цвет линий, неактивынх вкладок, рамок поста
-$borders-color: #586F8D;
+$border-color-1: $bg-color-2;
 //цвет линий, неактивынх вкладок, рамок поста
-$borders-color: #586F8D;
+$border-color-2: $bg-color-1;
 //цвет красного
 $error-color: #F43463;
