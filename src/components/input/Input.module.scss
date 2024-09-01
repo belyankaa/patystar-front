@@ -13,16 +13,24 @@
     border-radius: 5px;
     box-sizing: border-box;
     letter-spacing: 2px;
+    background-color: $bg-color-2;
+    border: 1px solid $bg-color-2;
 
     &[type="password"] {
       letter-spacing: 10px;
     }
   }
 
+  textarea.defaultInput {
+    padding: 0 15px 0 10px;
+    border-width: 20px 1px 1px 1px;
+    resize: none;
+  }
+
   .defaultInputLabel {
     width: fit-content;
     font-size: 16px;
-    color: $text-light-2;
+    color: $text-light-3;
     position: absolute;
     pointer-events: none;
     top: 12px;
@@ -39,9 +47,16 @@
   }
 
   .defaultInputError {
-    color: $error-color;
+    color: $error-text-color;
     position: absolute;
     top: 42px;
     left: 2px;
+  }
+
+  .defaultInputCounter {
+    color: $text-light-3;
+    position: absolute;
+    top: 2px;
+    right: 2px;
   }
 }

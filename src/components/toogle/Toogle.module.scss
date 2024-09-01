@@ -1,0 +1,33 @@
+@import "../../styles/variables";
+
+.ToogleContainer {
+  transition: .3s ease-in-out;
+  position: relative;
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: $bg-color-2;
+  height: 18px;
+  width: 30px;
+  border: 2px solid;
+  border-color: $bg-color-2;
+
+  .toogle {
+    transition: .2s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $text-light-1;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+  }
+
+  &.active {
+    background-color: $access-text-color;
+    border-color: $access-text-color;
+
+    .toogle {
+      left: 12px;
+    }
+  }
+}

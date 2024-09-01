@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import styles from './Login.module.scss';
 import {useQuery} from "@tanstack/react-query";
 import {UserService} from "@/services/user.service";
-import InputDefault from "@/components/input-default/InputDefault";
+import Input from "@/components/input/Input";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
 import Button from "@/components/button/Button";
@@ -59,12 +59,12 @@ const LoginPage = () => {
             </div>
             <div className={styles.form}>
                 <div className={styles.input}>
-                    <InputDefault value={username} onChange={(e: any) => changeUsernameFn(e)}
+                    <Input value={username} onChange={(e: any) => changeUsernameFn(e)}
                                   error={loginError}
                                   placeholder="Имя пользователя"/>
                 </div>
                 <div className={styles.input}>
-                    <InputDefault value={password} onChange={(e: any) => changePasswordFn(e)} type="password"
+                    <Input value={password} onChange={(e: any) => changePasswordFn(e)} type="password"
                                   errorMessage="Неправильный логин или пароль" error={loginError}
                                   placeholder="Пароль"/>
                 </div>

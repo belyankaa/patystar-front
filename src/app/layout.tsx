@@ -5,7 +5,6 @@ import React, {useEffect, useState} from "react";
 import {QueryCache, QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {UserService} from "@/services/user.service";
 import {usePathname, useRouter} from "next/navigation";
-import Navigation from "@/layout/navigation/Navigation";
 import LeftSidebar from "@/layout/leftSideBar/LeftSidebar";
 import Bottombar from "@/layout/bottomBar/Bottombar";
 

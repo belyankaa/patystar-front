@@ -5,7 +5,6 @@ import Event from "@/components/event/Event";
 import Topbar from "@/layout/topbar/Topbar";
 import {EventsService} from "@/services/events.service";
 import {useEffect, useState} from "react";
-import Navigation from "@/layout/navigation/Navigation";
 
 const Main = () => {
     const [events, eventsChange] = useState([]);

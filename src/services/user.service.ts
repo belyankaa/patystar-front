@@ -1,5 +1,6 @@
 import {Http} from "@/utils/httpUtils";
-import {useMutation, useQuery} from "@tanstack/react-query";
+import {useMutation} from "@tanstack/react-query";
+import {useEffect} from "react";
 
 export class UserService {
 

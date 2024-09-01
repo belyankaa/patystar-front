@@ -5,7 +5,7 @@ import {UserService} from "@/services/user.service";
 import {useRouter} from "next/navigation";
 import {useQuery} from "@tanstack/react-query";
 import styles from "./SignUp.module.scss";
-import InputDefault from "@/components/input-default/InputDefault";
+import Input from "@/components/input/Input";
 import Button from "@/components/button/Button";
 import Stepper from "@/components/stepper/Stepper";
 
@@ -164,7 +164,7 @@ const SignUp = () => {
 
             {currentPage === 1 && <div className={styles.inputs}>
                 <div className={styles.input}>
-                    <InputDefault placeholder="Имя пользователя" error={usernameError}
+                    <Input placeholder="Имя пользователя" error={usernameError}
                                   errorMessage="Имя пользователя уже занято"
                                   value={username} onChange={(e: any) => changeUsername(e)}/>
                 </div>
@@ -176,15 +176,15 @@ const SignUp = () => {
             </div>}
             {currentPage === 2 && <div className={styles.inputs}>
                 <div className={styles.input}>
-                    <InputDefault placeholder="Имя"
+                    <Input placeholder="Имя"
                                   value={firstName} onChange={(e: any) => changeFirstName(e)}/>
                 </div>
                 <div className={styles.input}>
-                    <InputDefault placeholder="Фамилия"
+                    <Input placeholder="Фамилия"
                                   value={lastName} onChange={(e: any) => changeLastName(e)}/>
                 </div>
                 <div className={styles.input}>
-                    <InputDefault placeholder="Дата рождения"
+                    <Input placeholder="Дата рождения"
                                   value={birthDay} onChange={(e: any) => changeBirthDay(e)}/>
                 </div>
 
@@ -194,12 +194,12 @@ const SignUp = () => {
             </div>}
             {currentPage === 3 && <div className={styles.inputs}>
                 <div className={styles.input}>
-                    <InputDefault placeholder="Пароль" type="password" error={notPodhodit}
+                    <Input placeholder="Пароль" type="password" error={notPodhodit}
                                   errorMessage="Пароль не подходит по требованиям"
                                   value={password} onChange={(e: any) => changePass(e)}/>
                 </div>
                 <div className={styles.input}>
-                    <InputDefault placeholder="Повторите пароль" type="password" error={notCompared && !notPodhodit}
+                    <Input placeholder="Повторите пароль" type="password" error={notCompared && !notPodhodit}
                                   errorMessage="Пароли не совпадают"
                                   value={rePass} onChange={(e: any) => changeRePass(e)}/>
                 </div>
