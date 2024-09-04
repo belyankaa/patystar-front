@@ -13,7 +13,7 @@ const AddPost = () => {
     const [isMaxParticipants, setIsMaxParticipants] = useState(false);
 
     function use() {
-
+        //Заглушка для инпутов
     }
 
     return (
